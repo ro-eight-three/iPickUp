@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    {% block filtering-heading %}{% endblock %}
+  </div>
+  <div class="panel-body">
+    <form method="GET">
+      <input type="text" name="q" value="{{ q }}"></input>
+      <button class="btn" type="submit">Filter</button>
+    </form>
+  </div>
+</div>
+
+{% if q %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <span>Results for <strong>{{ q }}</strong></span>
+    <form method="GET">
+      <button class="btn" type="submit">clear search</button>
+    </form>
+  </div>
+</div>
+{% endif %}

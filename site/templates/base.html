@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{% block title %}{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% include "scripts_block.html" %}
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="{% url 'common:dashboard'%}">iPickUp</a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        {% if not request.user.is_authenticated %}
+          <li><a href="{% url 'login' %}">Login</a></li>
+        {% else %}
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <span class="glyphicon glyphicon-user"
+                >{{ request.user.first_name }}</span>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="{% url 'logout' %}">
+                  <span class="glyphicon glyphicon-log-out">Log out</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li><a href="{% url 'basket:list' %}">Basket</a></li>
+        {% endif %}
+      </ul>
+
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    {% block content %}{% endblock %}
+  </div>
+{% block before_body_close %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,11 @@
+{% extends "utils/filtering.html" %}
+
+{% block filtering-heading %}
+  {% if seller %}
+    <span>Search products from <strong
+      >{{ seller.presentation_name }}</strong>
+    </span>
+  {% else %}
+    <span>Search all products</span>
+  {% endif %}
+{% endblock %}

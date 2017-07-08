@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Product details{% endblock %}
+
+{% block content %}
+<div class="list-group">
+  <div class="list-group-item">{{ object.name }}</div>
+  <div class="list-group-item">{{ object.descirption }}</div>
+</div>
+{% endblock %}

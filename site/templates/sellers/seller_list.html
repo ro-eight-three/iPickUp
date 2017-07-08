@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Sellers{% endblock %}
+
+{% block content %}
+
+{% include "sellers/seller_list_filtering.html" %}
+
+<div class="list-group">
+{% for seller in object_list %}
+  <a class="list-group-item" href="{% url 'products:list-seller' seller.id %}"
+    >{{ seller.presentation_name }}</a>
+{% endfor %}
+</div>
+
+{% if is_paginated %}
+  {% include "utils/pagination.html" %}
+{% endif %}
+
+{% endblock %}
+
+{% block before_body_close %}
+<script>
+pagination.init();
+</script>
+{% endblock %}

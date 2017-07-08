@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Products{% if seller %} by {{ seller.presentation_name }}{% endif %}{% endblock %}
+
+{% block content %}
+
+{% include "products/product_list_filtering.html" %}
+
+{% if not object_list %}
+  <h4>Nothing</h4>
+{% else %}
+  <div class="list-group">
+  {% for product in object_list %}
+    <div class="list-group-item">
+      <a href="{% url 'products:detail' product.id %}">{{ product.name }}</a>
+      <span>from </span><strong>{{ product.seller.presentation_name }}</strong>
+      <button class="btn btn-product-to-basket"
+        data-product-id="{{ product.id }}">Add to basket</button>
+    </div>
+  {% endfor %}
+  </div>
+
+  {% if is_paginated %}
+    {% include "utils/pagination.html" %}
+  {% endif %}
+
+{% endif %}
+
+{% endblock %}
+
+{% block before_body_close %}
+<script>
+product_list.init("{% url 'restapi:basketsale-list' %}");
+pagination.init();
+</script>
+{% endblock %}

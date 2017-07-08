@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Seller details{% endblock %}
+
+{% block content %}
+<div id="seller-fields">
+  <div class="field-panel panel panel-default hidden template">
+    <div class="panel-heading">
+      <strong><span class="field-name">NAME</span></strong>
+      <span class="field-edit">
+        <a href="#" ><span class="glyphicon glyphicon-edit"></span></a>
+      </span>
+    </div>
+    <div class="panel-body">
+      <p class="field-value">VALUE</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block before_body_close %}
+{% include "utils/modal_field_edit.html" %}
+<script>
+{% include "sellers/seller_detail_script.js" %}
+</script>
+{% endblock %}

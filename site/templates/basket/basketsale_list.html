@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Basket{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-8">
+
+<div class="panel basket-empty">
+  <strong>nothing in basket</strong>
+</div>
+
+{% for basketsales in basketsales_by_seller %}
+<div class="seller-block panel panel-default">
+  <div class="panel-heading">
+    <span>Products from: </span>
+    <a href="{% url 'products:list-seller' basketsales.0.product.seller.id %}">
+      <strong>{{ basketsales.0.product.seller.presentation_name }}</strong>
+    </a>
+    </br>
+    <span>Count:
+      <span class="basketsales-count">0</span>
+    <span>
+    </br>
+    <span>Estimated pickup time:
+      <span class="est-pickup-time">0</span>
+    <span>
+  </div>
+  <div class="panel-body">
+    <div class="list-group">
+    {% for basketsale in basketsales %}
+      <div class="list-group-item"
+          data-basketsale-id="{{ basketsale.id }}"
+          data-saved-quantity="{{ basketsale.quantity }}"
+          data-saved-comment="{{ basketsale.comment }}"
+          data-preparation-time="{{ basketsale.product.preparation_time }}">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-3 bg-primary">
+              <h5>{{ basketsale.product.name }}</h5>
+            </div>
+            <div class="col-sm-5"></div>
+            <div class="col-sm-2">
+              <button class='btn btn-update-basketsale'>Update</button>
+            </div>
+            <div class="col-sm-2">
+              <button class='btn btn-delete-basketsale bg-danger text-danger'>Delete</button>
+            </div>
+          </div>
+          <div class="row row-quantity">
+            <div class="col-sm-3"><h5>Quantity</h5></div>
+            <div class="col-sm-2">
+              <input class="form-control"
+                name="quantity" type="number" value="{{ basketsale.quantity }}"/>
+            </div>
+          </div>
+          <div class="row row-comment">
+            <div class="col-sm-3"><h5>Comment</h5></div>
+            <div class="col-sm-7">
+              <input class="form-control"
+                name="comment" type="text" value="{{ basketsale.comment }}"/>                  </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+    </div>
+    <div class="col-sm-4">
+      </br>
+      <span>Number of sellers:
+        <span class="num-sellers">0</span>
+      <span>
+      </br>
+      <span>Number of packages to pick:
+        <span class="num-packages">0</span>
+      <span>
+      </br>
+      <span>Price total:
+        <span class="price-total">0</span>
+      <span>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block before_body_close %}
+<script>
+basketsale_list.init("{% url 'restapi:basketsale-list' %}");
+</script>
+{% endblock %}
